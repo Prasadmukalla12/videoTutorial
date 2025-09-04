@@ -1,8 +1,10 @@
-import { Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
+import { Box, Button, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Typography } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FavoriteBorderOutlined, RemoveRedEyeOutlined, SaveAltOutlined, ThumbDownAltOutlined } from "@mui/icons-material";
+import { useDispatch , useSelector } from "react-redux";
+import { addToWatchLater, removeFromWatchLater } from "../slicers/slicer"; 
 
 
 
@@ -13,6 +15,21 @@ export function UserDashboard(){
     const [searchText,setSearchText] = useState("")
     const [sortItem,setSortItem] = useState("")
     const [categoryFilter,setCategoryFilter] = useState("")
+
+    const videosCount = useSelector(state => state.videosCount);
+    const AllVideos = useSelector(state=>state.videos)
+
+
+    const dispatch = useDispatch();
+
+    function handleSaveClick(video){
+        dispatch(addToWatchLater(video));
+    }
+
+    function handleDeleteClick(id){
+        dispatch(removeFromWatchLater(id))
+    }
+
 
     function handleNameChange(e){
         setSearchText(e.target.value)
@@ -61,6 +78,8 @@ export function UserDashboard(){
 
     }
 
+    const filterVideos = filterProducts()
+
     return(
         <div className="container-fluid">
             <div className="d-flex justify-content-between p-3 bg-white m-2 text-dark">
@@ -86,12 +105,47 @@ export function UserDashboard(){
                 </div>
                 </div>
                 <div>
-                   <button className="bi bi-tag-fill btn btn-warning"></button>
+                   <button data-bs-toggle="offcanvas" data-bs-target="#slide" className="bi bi-tag-fill btn btn-warning position-relative"><span className="badge position-absolute bg-danger rounded rounded-4">{videosCount}</span></button>
+                   <div className="offcanvas offcanvas-end" id="slide">
+                    <div className="offcanvas-header d-flex justify-content-between">
+                    
+                            <span className="fs-4 fw-bold">Saved Videos</span>
+                            <span className="float-end"><button className="btn btn-close" data-bs-dismiss="offcanvas"></button></span>
+
+                    </div>
+                    <div className="offcanvas-body">
+                        {
+                            AllVideos.length>0 ? (
+                                    <table className="table table-hover table-bordered table-success text-center align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Preview</th>
+                                                <th>Remove</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                               AllVideos.map(video=>
+                                                <tr key={video.id}>
+                                                    <td>{video.title}</td>
+                                                    <td><iframe src={video.url} height="80" width="120"></iframe></td>
+                                                    <td ><button onClick={()=>{handleDeleteClick(video.id)}} className="bi bi-trash btn btn-danger"></button></td>
+                                                </tr>
+                                               )
+                                            }
+                                        </tbody>
+                                    </table>
+                            ) : (<p className="fs-4 fw-bold">No videos Found</p>)
+                        }
+                    </div>
+                   </div>
                 </div>
             </div>
             <div style={{height:"500px"}} className="d-flex flex-wrap">
                 {
-                    filterProducts().map(video=>
+                    filterVideos.length>0 ? (
+                        filterVideos.map(video=>
                         <Card className="p-2 m-1 bg-dark text-white" key={video.id} sx={{width:"400px"}} >
                             <CardMedia component="iframe" src={video.url} height="200" />
                             <CardHeader title={video.title} />
@@ -102,16 +156,22 @@ export function UserDashboard(){
                                 </CardContent>
                             </CardActionArea>
                                <CardActions>
-                                <ButtonGroup sx={{ "& .MuiButton-root": { fontWeight: "bold" } }} color="success"  fullWidth variant="outlined">
+                                <ButtonGroup sx={{ "& .MuiButton-root": { fontWeight: "bold" } }} color="inherit"  fullWidth variant="outlined">
                                   <Button><FavoriteBorderOutlined/>{video.likes}</Button>
                                   <Button><ThumbDownAltOutlined/>{video.dislikes}</Button>
                                   <Button><RemoveRedEyeOutlined/>{video.views}</Button>
                                </ButtonGroup>
                                </CardActions>
                             <CardActions>
-                                <Button color="error" variant="contained" fullWidth >{<SaveAltOutlined/>}Watch-Later</Button>
+                                <Button onClick={()=>{handleSaveClick(video)}} color="error" variant="contained" fullWidth >{<SaveAltOutlined/>}Watch-Later</Button>
                             </CardActions>
                         </Card>
+                    )
+                    ) : 
+                    (
+                       <div className="p-4 text-center w-100 text-warning" style={{height:"100px"}}>
+                        <Typography sx={{fontWeight:"bold", fontSize:"25px"}}>No Videos Found!</Typography>
+                       </div>
                     )
                 }
             </div>
