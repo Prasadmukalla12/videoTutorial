@@ -1,0 +1,110 @@
+{
+  "admin": [
+    {
+      "id": "1",
+      "admin_id": "prasad_admin",
+      "password": "prasad12"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "user_id": "sai",
+      "user_name": "saimuddada",
+      "password": "sai123",
+      "email": "sai@123gmail.com"
+    },
+    {
+      "id": "169e",
+      "user_id": "naveen",
+      "user_name": "naveenravada",
+      "password": "naveen123",
+      "email": "naveen@gmail.com"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "category_id": 1,
+      "category_name": "React"
+    },
+    {
+      "id": "2",
+      "category_id": 2,
+      "category_name": "Java"
+    },
+    {
+      "id": "3",
+      "category_id": 3,
+      "category_name": "Python"
+    }
+  ],
+  "videos": [
+    {
+      "title": "React Demo video",
+      "url": "https://www.youtube.com/embed/NJVQA10RPuA",
+      "description": "All react componant and hooks ",
+      "likes": 200,
+      "dislikes": 0,
+      "views": 500,
+      "comments": "I like this video",
+      "category_id": 1,
+      "id": "714d"
+    },
+    {
+      "title": "Java Demo",
+      "url": "https://www.youtube.com/embed/U2PiMIS75jU",
+      "description": "Java online training",
+      "likes": 300,
+      "dislikes": 10,
+      "views": 800,
+      "comments": "Thank you for giving information",
+      "category_id": 2,
+      "id": "0dfc"
+    },
+    {
+      "id": "3e2b",
+      "title": "Python Demo",
+      "description": "python full course with AI",
+      "url": "https://www.youtube.com/embed/1lgER_5EQOw",
+      "likes": 200,
+      "dislikes": 2,
+      "comments": "Informative video",
+      "views": 1000,
+      "category_id": 3
+    },
+    {
+      "id": "d667",
+      "title": "Java Fuctions",
+      "description": "java function with examples",
+      "url": "https://www.youtube.com/embed/YozA3h_MFzo",
+      "likes": 200,
+      "dislikes": 5,
+      "comments": "I liked this video and information",
+      "views": 1500,
+      "category_id": 2
+    },
+    {
+      "id": "0bbd",
+      "title": "React Componant",
+      "description": "React componant life cycle",
+      "url": "https://www.youtube.com/embed/kIbNo_pni2Q",
+      "likes": 500,
+      "dislikes": 10,
+      "comments": "this video given more information to me",
+      "views": 1500,
+      "category_id": 1
+    },
+    {
+      "id": "b578",
+      "title": "Python Basics",
+      "description": "Python classes and fundamentals",
+      "url": "https://www.youtube.com/embed/opMy8G3K4i0",
+      "likes": 200,
+      "dislikes": 30,
+      "comments": "Thank you for giving information",
+      "views": 2000,
+      "category_id": 3
+    }
+  ]
+}
